@@ -15,7 +15,7 @@ export const isDemoMode =
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, "");
 
 export const PUBLIC_CONFIG = {
-  checkoutUrl: process.env.NEXT_PUBLIC_CHECKOUT_URL ?? "",
+  checkoutUrl: process.env.NEXT_PUBLIC_CHECKOUT_URL || "https://pay.cakto.com.br/yojcohy_1348277",
   priceCents: Number(process.env.NEXT_PUBLIC_PRICE_CENTS ?? 2990),
   supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL ?? "",
   supportWhatsapp: process.env.NEXT_PUBLIC_SUPPORT_WHATSAPP ?? "",
