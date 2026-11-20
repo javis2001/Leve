@@ -57,6 +57,15 @@ export function TrackingScripts() {
           <Script src={UTMIFY_SCRIPT_URL} strategy="afterInteractive" />
         </>
       )}
+      {utmifyPixelId && (
+        // Script de UTMs da UTMify: guarda as UTMs do anúncio e as repassa ao checkout no formato que a UTMify usa para atribuir a venda.
+        <Script
+          src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+          strategy="afterInteractive"
+          data-utmify-prevent-xcod-sck=""
+          data-utmify-prevent-subids=""
+        />
+      )}
     </>
   );
 }

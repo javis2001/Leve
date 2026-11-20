@@ -53,7 +53,8 @@ export function CheckoutButton({
         id={`botao-checkout-${placement}`}
         data-checkout="true"
         onClick={(e) => {
-          const finalUrl = buildCheckoutUrl(url);
+          // Parte do link atual (que pode já ter parâmetros adicionados pelo script de UTMs da UTMify) e só completa o que faltar.
+          const finalUrl = buildCheckoutUrl(e.currentTarget.href || url);
           if (e.currentTarget.href !== finalUrl) e.currentTarget.href = finalUrl;
           track("InitiateCheckout", { value: priceCents / 100, currency: "BRL", content_name: "Vida Leve" }, "checkout");
         }}
