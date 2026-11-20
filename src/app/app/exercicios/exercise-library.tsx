@@ -53,7 +53,7 @@ export function ExerciseLibrary({ exercises }: { exercises: Exercise[] }) {
                       <div className="aspect-[5/4] overflow-hidden">
                         {e.imageUrl ? (
                           // eslint-disable-next-line @next/next/no-img-element
-                          <img src={e.imageUrl} alt={e.name} className="h-full w-full object-cover" loading="lazy" />
+                          <img src={e.imageUrl} alt={e.name} className="h-full w-full bg-[radial-gradient(circle_at_50%_35%,#ffffff,#e3eae6)] object-contain p-1" loading="lazy" />
                         ) : (
                           <ExercisePose pose={e.pose} slug={e.slug} label={e.name} className="transition duration-500 group-hover:scale-105" />
                         )}

@@ -36,6 +36,18 @@ const BY_SLUG: Record<string, ExerciseVisual> = {
   "extensao-de-joelho-sentada": { focus: ["thigh"], arrows: ["M138 144 Q166 134 174 108"], muscles: "Parte da frente da coxa" },
   "bracos-acima-da-cabeca-sentada": { focus: ["upperArm", "forearm"], arrows: ["M76 42 L76 14", "M124 42 L124 14"], muscles: "Ombros e braços" },
   "torcao-sentada": { focus: ["torso"], arrows: ["M80 90 Q100 106 120 90"], muscles: "Coluna e cintura" },
+  "rotacao-espinhal-sentada": { focus: ["torso"], arrows: [], muscles: "Coluna, costas e quadril" },
+  "borboleta-sentada": { focus: ["thigh"], arrows: [], muscles: "Parte interna das coxas e quadril" },
+  "alongamento-da-cobra": { focus: ["torso"], arrows: [], muscles: "Abdômen e coluna" },
+  "cachorro-olhando-para-baixo": { focus: ["thigh", "shin", "upperArm"], arrows: [], muscles: "Parte de trás das pernas, costas e ombros" },
+  "afundo-profundo": { focus: ["thigh"], arrows: [], muscles: "Quadril e frente da coxa" },
+  "meia-abertura": { focus: ["thigh"], arrows: [], muscles: "Parte de trás da coxa" },
+  "afundo-crescente": { focus: ["thigh", "torso"], arrows: [], muscles: "Pernas, quadril e tronco" },
+  "afundo-do-lagarto": { focus: ["thigh"], arrows: [], muscles: "Quadril e virilha" },
+  "postura-do-camelo-adaptada": { focus: ["torso", "thigh"], arrows: [], muscles: "Abdômen, peito e frente do quadril" },
+  "alongamento-do-psoas": { focus: ["thigh"], arrows: [], muscles: "Frente do quadril (psoas)" },
+  "agachamento-malasana": { focus: ["thigh"], arrows: [], muscles: "Quadril, coxas e tornozelos" },
+  "postura-da-crianca": { focus: ["torso"], arrows: [], muscles: "Costas e quadril (relaxamento)" },
 };
 
 const BY_POSE: Record<Pose, ExerciseVisual> = {
@@ -52,6 +64,18 @@ const BY_POSE: Record<Pose, ExerciseVisual> = {
   "lying-bridge": { focus: ["thigh"], arrows: [], muscles: "Glúteos" },
   "all-fours": { focus: ["torso"], arrows: [], muscles: "Coluna" },
   breathing: { focus: ["torso"], arrows: [], muscles: "Respiração" },
+  "floor-twist": { focus: ["torso"], arrows: [], muscles: "Coluna" },
+  butterfly: { focus: ["thigh"], arrows: [], muscles: "Quadril" },
+  cobra: { focus: ["torso"], arrows: [], muscles: "Coluna" },
+  "down-dog": { focus: ["thigh", "shin"], arrows: [], muscles: "Pernas e costas" },
+  "low-lunge": { focus: ["thigh"], arrows: [], muscles: "Quadril" },
+  "half-split": { focus: ["thigh"], arrows: [], muscles: "Posterior da coxa" },
+  "crescent-lunge": { focus: ["thigh"], arrows: [], muscles: "Pernas" },
+  lizard: { focus: ["thigh"], arrows: [], muscles: "Quadril" },
+  camel: { focus: ["torso"], arrows: [], muscles: "Tronco" },
+  "kneeling-lunge": { focus: ["thigh"], arrows: [], muscles: "Quadril" },
+  malasana: { focus: ["thigh"], arrows: [], muscles: "Quadril" },
+  child: { focus: ["torso"], arrows: [], muscles: "Costas" },
 };
 
 export function exerciseVisual(slug: string | undefined, pose: Pose): ExerciseVisual {

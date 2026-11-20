@@ -89,7 +89,19 @@ export type Pose =
   | "lying"
   | "lying-bridge"
   | "all-fours"
-  | "breathing";
+  | "breathing"
+  | "floor-twist"
+  | "butterfly"
+  | "cobra"
+  | "down-dog"
+  | "low-lunge"
+  | "half-split"
+  | "crescent-lunge"
+  | "lizard"
+  | "camel"
+  | "kneeling-lunge"
+  | "malasana"
+  | "child";
 
 export interface Exercise {
   slug: string;

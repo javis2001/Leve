@@ -37,7 +37,7 @@ export default async function ExercisePage({ params }: Params) {
             <video src={e.videoUrl} controls playsInline preload="metadata" className="h-full w-full bg-black object-contain" aria-label={`Vídeo: ${e.name}`} />
           ) : e.imageUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={e.imageUrl} alt={`Ilustração: ${e.name}`} className="h-full w-full object-contain bg-[#eef2f0]" />
+            <img src={e.imageUrl} alt={`Ilustração: ${e.name}`} className="h-full w-full bg-[radial-gradient(circle_at_50%_35%,#ffffff,#e3eae6)] object-contain p-2" />
           ) : (
             <ExercisePose pose={e.pose} slug={e.slug} label={`Ilustração: ${e.name}`} />
           )}

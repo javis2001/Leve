@@ -112,3 +112,13 @@ describe("filtros de receitas", () => {
     expect(r.map((x) => x.slug)).toEqual(["sorvete-de-banana"]);
   });
 });
+
+import IMAGE_FILES from "@/lib/content/exercise-image-files.json";
+import { exerciseVisual } from "@/lib/content/exercise-visuals";
+describe("imagens dos exercícios", () => {
+  it("todo exercício mapeado para imagem existe e tem legenda de músculos", () => {
+    for (const slug of Object.keys(IMAGE_FILES)) expect(EXERCISE_BY_SLUG[slug], slug).toBeDefined();
+    for (const e of EXERCISES) expect(exerciseVisual(e.slug, e.pose).muscles.length, e.slug).toBeGreaterThan(3);
+    expect(EXERCISES.length).toBe(36);
+  });
+});

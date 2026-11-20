@@ -1,0 +1,16 @@
+Coloque aqui as imagens dos exercícios (PNG 1080x1080, fundo transparente).
+Nomes esperados (veja docs/prompts-ilustracoes-exercicios.md):
+exercicio-01-rotacao-espinhal.png
+exercicio-02-borboleta-sentada.png
+exercicio-03-alongamento-cobra.png
+exercicio-04-cachorro-olhando-baixo.png
+exercicio-05-afundo-profundo.png
+exercicio-06-meia-abertura.png
+exercicio-07-afundo-crescente.png
+exercicio-08-afundo-lagarto.png
+exercicio-09-postura-camelo.png
+exercicio-10-alongamento-psoas.png
+exercicio-11-malasana.png
+exercicio-12-alongamento-crianca.png
+Também funciona para qualquer outro exercício usando o nome do identificador, ex.: flexao-na-parede.png
+Depois de adicionar, faça commit no GitHub: a Vercel publica e as imagens aparecem sozinhas.

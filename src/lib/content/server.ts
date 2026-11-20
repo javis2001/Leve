@@ -2,6 +2,7 @@ import "server-only";
 import { cache } from "react";
 import { getSupabaseServer } from "@/lib/supabase/server";
 import { EXERCISES } from "./exercises";
+import EXERCISE_IMAGES from "./exercise-images.json";
 import { JOURNEY_DAYS } from "./journey";
 import { RECIPES } from "./recipes";
 import type { Exercise, JourneyDay, Recipe } from "./types";
@@ -39,7 +40,12 @@ function merge<T extends { slug: string }>(base: T[], rows: { slug: string; data
 export const getRecipes = cache(async (): Promise<Recipe[]> => merge(RECIPES, await overrides<Recipe>("recipes", "slug")));
 export const getRecipe = cache(async (slug: string) => (await getRecipes()).find((r) => r.slug === slug) ?? null);
 
-export const getExercises = cache(async (): Promise<Exercise[]> => merge(EXERCISES, await overrides<Exercise>("exercises", "slug")));
+const IMAGES = EXERCISE_IMAGES as Record<string, string>;
+
+/** Imagens em public/images/exercicios entram automaticamente; uma URL cadastrada no admin tem prioridade. */
+export const getExercises = cache(async (): Promise<Exercise[]> =>
+  merge(EXERCISES, await overrides<Exercise>("exercises", "slug")).map((e) => ({ ...e, imageUrl: e.imageUrl || IMAGES[e.slug] || null })),
+);
 
 export const getJourneyDays = cache(async (): Promise<JourneyDay[]> => {
   const sb = await getSupabaseServer();

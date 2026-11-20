@@ -7,7 +7,7 @@ import { Input, Label, Select, Textarea } from "@/components/ui/input";
 import { getExercises } from "@/lib/content/server";
 import { EXERCISE_CATEGORIES, type Exercise } from "@/lib/content/types";
 
-const POSES = ["standing", "standing-arms-up", "standing-side", "walking", "squat", "wall-push", "seated", "seated-arms-up", "seated-leg", "lying", "lying-bridge", "all-fours", "breathing"];
+const POSES = ["standing", "standing-arms-up", "standing-side", "walking", "squat", "wall-push", "seated", "seated-arms-up", "seated-leg", "lying", "lying-bridge", "all-fours", "breathing", "floor-twist", "butterfly", "cobra", "down-dog", "low-lunge", "half-split", "crescent-lunge", "lizard", "camel", "kneeling-lunge", "malasana", "child"];
 
 export default async function EditExercise({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

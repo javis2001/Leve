@@ -12,7 +12,9 @@
     "test:e2e": "node scripts/e2e.mjs",
     "screens": "node scripts/screens.mjs",
     "pdf:build": "vitest run tests/pdf.test.ts",
-    "check": "npm run typecheck && npm run lint && npm test && npm run build"
+    "check": "npm run typecheck && npm run lint && npm test && npm run build",
+    "prebuild": "node scripts/sync-exercise-images.mjs",
+    "predev": "node scripts/sync-exercise-images.mjs"
   },
   "dependencies": {
     "@fontsource-variable/manrope": "^5.3.0",
