@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { MailCheck, Loader2 } from "lucide-react";
+import { MailCheck, Loader2, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FieldError, Input, Label } from "@/components/ui/input";
 import { getSupabaseBrowser } from "@/lib/supabase/client";
@@ -61,6 +61,12 @@ export function SignupForm({ demo }: { demo: boolean }) {
         } else setSent(email);
       }}
     >
+      <div role="note" className="flex gap-3 rounded-2xl border border-gold/50 bg-gold-soft p-4 text-sm text-ink">
+        <Info className="mt-0.5 size-5 shrink-0 text-gold-deep" aria-hidden />
+        <p>
+          <strong className="font-bold">Use o mesmo e-mail da sua compra.</strong> É por ele que o seu acesso é liberado. Com outro e-mail, a conta fica aguardando liberação.
+        </p>
+      </div>
       <div>
         <Label htmlFor="name">Nome</Label>
         <Input id="name" name="name" autoComplete="given-name" aria-invalid={Boolean(errors.name)} />
@@ -68,7 +74,10 @@ export function SignupForm({ demo }: { demo: boolean }) {
       </div>
       <div>
         <Label htmlFor="email">E-mail da compra</Label>
-        <Input id="email" name="email" type="email" autoComplete="email" inputMode="email" aria-invalid={Boolean(errors.email)} />
+        <Input id="email" name="email" type="email" autoComplete="email" inputMode="email" aria-invalid={Boolean(errors.email)} aria-describedby="email-hint" />
+        <p id="email-hint" className="mt-1 text-xs text-muted">
+          O mesmo que você usou no pagamento. Confira se não há erro de digitação.
+        </p>
         <FieldError>{errors.email}</FieldError>
       </div>
       <div>

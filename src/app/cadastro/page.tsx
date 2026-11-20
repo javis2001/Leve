@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "Criar conta" };
 
 export default function SignupPage() {
   return (
-    <AuthLayout title="Crie sua conta" subtitle="Use o mesmo e-mail informado na compra para liberar seu acesso automaticamente.">
+    <AuthLayout title="Crie sua conta" subtitle="Falta pouco para começar sua jornada.">
       <SignupForm demo={isDemoMode} />
     </AuthLayout>
   );
