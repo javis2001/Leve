@@ -1,4 +1,5 @@
 "use client";
+import { PUBLIC_CONFIG } from "@/lib/env";
 
 export type TrackEvent = "PageView" | "ViewContent" | "InitiateCheckout";
 export type Consent = "granted" | "denied";
@@ -124,10 +125,25 @@ export function track(event: TrackEvent, params: { value?: number; currency?: st
   const key = `${event}:${dedupeKey ?? window.location.pathname}`;
   if (alreadySent(key)) return;
   const eventID = `${event}-${Math.random().toString(36).slice(2, 10)}-${Date.now()}`;
-  if (event === "PageView") window.fbq?.("track", "PageView", {}, { eventID });
-  else window.fbq?.("track", event, params, { eventID });
-  window.gtag?.("event", GA_NAMES[event], {
-    ...(params.value !== undefined ? { value: params.value, currency: params.currency ?? "BRL" } : {}),
-    ...(event === "PageView" ? { page_path: window.location.pathname } : {}),
-  });
+  const send = () => {
+    if (event === "PageView") window.fbq?.("track", "PageView", {}, { eventID });
+    else window.fbq?.("track", event, params, { eventID });
+    window.gtag?.("event", GA_NAMES[event], {
+      ...(params.value !== undefined ? { value: params.value, currency: params.currency ?? "BRL" } : {}),
+      ...(event === "PageView" ? { page_path: window.location.pathname } : {}),
+    });
+  };
+  // Os pixels carregam de forma assíncrona: se ainda não estiverem prontos, espera até 8 s
+  // (antes o evento era descartado em silêncio, e o PageView da Meta se perdia no primeiro acesso).
+  const needsMeta = Boolean(PUBLIC_CONFIG.metaPixelId);
+  const needsGa = Boolean(PUBLIC_CONFIG.ga4Id);
+  const ready = () => (!needsMeta || typeof window.fbq === "function") && (!needsGa || typeof window.gtag === "function");
+  if (ready()) return send();
+  const started = Date.now();
+  const timer = window.setInterval(() => {
+    if (ready() || Date.now() - started > 8000) {
+      window.clearInterval(timer);
+      send();
+    }
+  }, 150);
 }
