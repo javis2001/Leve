@@ -19,7 +19,7 @@ export function Logo({ className, tone = "dark", compact = false }: { className?
       <LogoMark className="size-9 shrink-0" />
       {!compact && (
         <span className={cn("font-display text-[1.4rem] leading-none font-semibold tracking-tight", tone === "light" ? "text-white" : "text-forest")}>
-          Vida <em className={cn("font-medium", tone === "light" ? "text-gold" : "text-emerald")}>Leve</em>
+          Vida <em className={cn("font-medium", tone === "light" ? "text-gold" : "text-[#A8842F]")}>Leve</em>
         </span>
       )}
     </span>
