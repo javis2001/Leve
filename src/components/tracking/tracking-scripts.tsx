@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { PUBLIC_CONFIG } from "@/lib/env";
 import { captureAttribution, getConsent, track, type Consent } from "@/lib/tracking/client";
 
-const UTMIFY_SCRIPT_URL = process.env.NEXT_PUBLIC_UTMIFY_SCRIPT_URL ?? "";
+const UTMIFY_SCRIPT_URL = process.env.NEXT_PUBLIC_UTMIFY_SCRIPT_URL || "https://cdn.utmify.com.br/scripts/pixel/pixel.js";
 
 /** Carrega Meta Pixel, GA4 e UTMify somente após consentimento e apenas fora da área de membros. */
 export function TrackingScripts() {

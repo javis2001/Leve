@@ -23,5 +23,5 @@ export const PUBLIC_CONFIG = {
   companyDocument: process.env.NEXT_PUBLIC_COMPANY_DOCUMENT ?? "",
   metaPixelId: process.env.NEXT_PUBLIC_META_PIXEL_ID || "1445063967816814",
   ga4Id: process.env.NEXT_PUBLIC_GA4_ID ?? "",
-  utmifyPixelId: process.env.NEXT_PUBLIC_UTMIFY_PIXEL_ID ?? "",
+  utmifyPixelId: process.env.NEXT_PUBLIC_UTMIFY_PIXEL_ID || "6affc67b88d8ed7f34f5a6d1",
 };

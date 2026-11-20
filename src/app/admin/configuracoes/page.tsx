@@ -17,7 +17,7 @@ export default async function SettingsAdmin() {
     ["Meta Conversions API (Purchase no servidor)", Boolean(PUBLIC_CONFIG.metaPixelId && process.env.META_CAPI_ACCESS_TOKEN)],
     ["Google Analytics 4", Boolean(PUBLIC_CONFIG.ga4Id)],
     ["GA4 Measurement Protocol (Purchase no servidor)", Boolean(PUBLIC_CONFIG.ga4Id && process.env.GA4_API_SECRET)],
-    ["UTMify (pixel)", Boolean(PUBLIC_CONFIG.utmifyPixelId && process.env.NEXT_PUBLIC_UTMIFY_SCRIPT_URL)],
+    ["UTMify (pixel)", Boolean(PUBLIC_CONFIG.utmifyPixelId)],
   ] as const;
   return (
     <>
