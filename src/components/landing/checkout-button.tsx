@@ -35,7 +35,7 @@ export function CheckoutButton({
       asChild
       variant={variant}
       size={size}
-      className={cn("group h-auto min-h-14 whitespace-normal py-3 text-center leading-snug", className)}
+      className={cn("group h-auto min-h-14 whitespace-normal py-3 text-center leading-snug sm:whitespace-nowrap", className)}
       data-placement={placement}
     >
       <a
