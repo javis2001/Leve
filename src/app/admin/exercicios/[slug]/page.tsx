@@ -35,6 +35,11 @@ export default async function EditExercise({ params }: { params: Promise<{ slug:
           <Input id="videoUrl" name="videoUrl" type="url" defaultValue={e.videoUrl ?? ""} placeholder="https://… (arquivo .mp4 licenciado)" />
           <p className="mt-1 text-xs text-muted">Use somente vídeos com licença de uso e conteúdo validado por profissional.</p>
         </div>
+        <div>
+          <Label htmlFor="imageUrl">Imagem própria (opcional)</Label>
+          <Input id="imageUrl" name="imageUrl" type="url" defaultValue={e.imageUrl ?? ""} placeholder="https://… (envie em Imagens e cole a URL aqui)" />
+          <p className="mt-1 text-xs text-muted">Se preenchida, substitui a ilustração 3D padrão. Use apenas imagens suas ou licenciadas.</p>
+        </div>
         <label className="flex items-center gap-2 text-sm font-semibold"><input type="checkbox" name="published" defaultChecked className="size-4 accent-emerald" /> Publicado</label>
       </ActionForm>
     </>

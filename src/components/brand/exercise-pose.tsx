@@ -1,3 +1,4 @@
+import { exerciseVisual, type Segment } from "@/lib/content/exercise-visuals";
 import type { Pose } from "@/lib/content/types";
 import { cn } from "@/lib/utils";
 
@@ -27,47 +28,145 @@ const FIGURES: Record<Pose, Figure> = {
   breathing: { head: [100, 40], neck: [100, 56], hip: [100, 110], arms: [[[84, 82], [98, 92]], [[116, 70], [104, 68]]], legs: [[[70, 122], [112, 128]], [[130, 122], [88, 128]]], props: ["mat", "breath"] },
 };
 
-export function ExercisePose({ pose, className, label }: { pose: Pose; className?: string; label?: string }) {
-  const f = FIGURES[pose];
-  const line = (a: P, b: P) => `M${a[0]} ${a[1]}L${b[0]} ${b[1]}`;
-  const props = f.props ?? [];
+type Tone = "gray" | "red";
+const STOPS: Record<Tone, Record<"near" | "far", [string, string, string, string]>> = {
+  gray: { near: ["#7e8a85", "#f6f8f7", "#cfd7d3", "#86928d"], far: ["#68736e", "#d7dedb", "#b0bbb6", "#727e79"] },
+  red: { near: ["#7c1a14", "#ff8b7a", "#d8432f", "#8e2016"], far: ["#651410", "#ec6a58", "#bb3524", "#741913"] },
+};
+const WIDTH: Record<Segment, number> = { neck: 8, torso: 21, upperArm: 9, forearm: 7.5, thigh: 13, shin: 10 };
+
+function Cyl({ id, a, b, seg, tone, depth }: { id: string; a: P; b: P; seg: Segment; tone: Tone; depth: "near" | "far" }) {
+  const w = WIDTH[seg];
+  const dx = b[0] - a[0];
+  const dy = b[1] - a[1];
+  const len = Math.hypot(dx, dy) || 1;
+  const nx = -dy / len;
+  const ny = dx / len;
+  const mx = (a[0] + b[0]) / 2;
+  const my = (a[1] + b[1]) / 2;
+  const c = STOPS[tone][depth];
   return (
-    <svg viewBox="0 0 200 160" className={cn("h-full w-full", className)} role="img" aria-label={label ?? "Ilustração do exercício"}>
-      <rect width="200" height="160" fill="#E8F6EF" />
-      <circle cx="166" cy="30" r="16" fill="#D6B36A" opacity="0.25" />
-      {props.includes("floor") && <path d="M16 149h168" stroke="#0B6249" strokeOpacity="0.18" strokeWidth="3" strokeLinecap="round" />}
-      {props.includes("mat") && <rect x="14" y="128" width="172" height="8" rx="4" fill="#138A65" opacity="0.22" />}
-      {props.includes("wall") && <rect x="28" y="12" width="12" height="138" rx="3" fill="#0B6249" opacity="0.14" />}
-      {props.includes("chair") && (
-        <g stroke="#9A7A32" strokeWidth="4" strokeLinecap="round" fill="none" opacity="0.8">
-          <path d="M92 108h40" />
-          <path d="M94 108v40M130 108v40" />
-          <path d="M92 108V64" />
-        </g>
-      )}
-      {props.includes("path") && <path d="M20 156c40-6 120-6 160 0" stroke="#D6B36A" strokeWidth="2" strokeDasharray="4 6" fill="none" />}
-      {props.includes("arrow") && (
-        <g stroke="#D6B36A" strokeWidth="3" fill="none" strokeLinecap="round">
-          <path d="M70 84c10 10 50 10 60 0" />
-          <path d="M124 78l6 6-8 3" />
-        </g>
-      )}
-      {props.includes("breath") && (
-        <g stroke="#138A65" strokeWidth="2.5" fill="none" strokeLinecap="round" opacity="0.6">
-          <path d="M122 34c8-6 14 6 22 0" />
-          <path d="M126 46c8-6 14 6 22 0" />
-        </g>
-      )}
-      <g stroke="#0B6249" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" fill="none">
-        <path d={line(f.neck, f.hip)} />
-        {f.legs.map(([k, ft], i) => (
-          <path key={`l${i}`} d={`${line(f.hip, k)}L${ft[0]} ${ft[1]}`} opacity={i === 0 ? 1 : 0.7} />
-        ))}
-        {f.arms.map(([e, h], i) => (
-          <path key={`a${i}`} d={`${line(f.neck, e)}L${h[0]} ${h[1]}`} stroke={i === 0 ? "#138A65" : "#0B6249"} opacity={i === 0 ? 1 : 0.75} />
-        ))}
+    <g>
+      <defs>
+        <linearGradient id={id} gradientUnits="userSpaceOnUse" x1={mx - (nx * w) / 2} y1={my - (ny * w) / 2} x2={mx + (nx * w) / 2} y2={my + (ny * w) / 2}>
+          <stop offset="0" stopColor={c[0]} />
+          <stop offset="0.32" stopColor={c[1]} />
+          <stop offset="0.68" stopColor={c[2]} />
+          <stop offset="1" stopColor={c[3]} />
+        </linearGradient>
+      </defs>
+      <path d={`M${a[0]} ${a[1]}L${b[0]} ${b[1]}`} stroke={`url(#${id})`} strokeWidth={w} strokeLinecap="round" fill="none" />
+    </g>
+  );
+}
+
+function Joint({ at, r, tone, gid }: { at: P; r: number; tone: Tone; gid: string }) {
+  return <circle cx={at[0]} cy={at[1]} r={r} fill={`url(#${gid}-${tone})`} />;
+}
+
+/**
+ * Ilustração em estilo 3D: corpo com volume (luz e sombra), músculos trabalhados em vermelho
+ * e setas indicando a direção do movimento.
+ */
+export function ExercisePose({ pose, slug, className, label }: { pose: Pose; slug?: string; className?: string; label?: string }) {
+  const f = FIGURES[pose];
+  const v = exerciseVisual(slug, pose);
+  const uid = `ex-${slug ?? pose}`;
+  const props = f.props ?? [];
+  const tone = (seg: Segment): Tone => (v.focus.includes(seg) ? "red" : "gray");
+  const pts = [f.head, f.neck, f.hip, ...f.arms.flat(), ...f.legs.flat()];
+  const groundY = Math.max(...pts.map((p) => p[1])) + 4;
+  const minX = Math.min(...pts.map((p) => p[0]));
+  const maxX = Math.max(...pts.map((p) => p[0]));
+
+  const limb = (i: number, depth: "near" | "far") => {
+    const [elbow, hand] = f.arms[i];
+    const [knee, foot] = f.legs[i];
+    return (
+      <g key={`${depth}${i}`}>
+        <Cyl id={`${uid}-th${i}`} a={f.hip} b={knee} seg="thigh" tone={tone("thigh")} depth={depth} />
+        <Cyl id={`${uid}-sh${i}`} a={knee} b={foot} seg="shin" tone={tone("shin")} depth={depth} />
+        <Joint at={knee} r={5.4} tone={tone("thigh")} gid={uid} />
+        <ellipse cx={foot[0] + 3} cy={foot[1] + 1} rx={7} ry={3.6} fill={depth === "near" ? "#9aa6a1" : "#7f8b86"} />
+        <Cyl id={`${uid}-ua${i}`} a={f.neck} b={elbow} seg="upperArm" tone={tone("upperArm")} depth={depth} />
+        <Cyl id={`${uid}-fa${i}`} a={elbow} b={hand} seg="forearm" tone={tone("forearm")} depth={depth} />
+        <Joint at={elbow} r={4.2} tone={tone("upperArm")} gid={uid} />
+        <circle cx={hand[0]} cy={hand[1]} r={4} fill={`url(#${uid}-gray)`} />
       </g>
-      <circle cx={f.head[0]} cy={f.head[1]} r="11" fill="#0B6249" />
+    );
+  };
+
+  return (
+    <svg viewBox="0 0 200 160" className={cn("h-full w-full", className)} role="img" aria-label={label ?? `Ilustração do exercício. Trabalha: ${v.muscles}`}>
+      <defs>
+        <radialGradient id={`${uid}-bg`} cx="0.5" cy="0.35" r="0.85">
+          <stop offset="0" stopColor="#ffffff" />
+          <stop offset="1" stopColor="#e3eae6" />
+        </radialGradient>
+        <radialGradient id={`${uid}-gray`} cx="0.35" cy="0.3" r="0.75">
+          <stop offset="0" stopColor="#ffffff" />
+          <stop offset="0.55" stopColor="#c9d2ce" />
+          <stop offset="1" stopColor="#7a8681" />
+        </radialGradient>
+        <radialGradient id={`${uid}-red`} cx="0.35" cy="0.3" r="0.75">
+          <stop offset="0" stopColor="#ffb3a7" />
+          <stop offset="0.55" stopColor="#d8432f" />
+          <stop offset="1" stopColor="#7c1a14" />
+        </radialGradient>
+        <radialGradient id={`${uid}-shadow`}>
+          <stop offset="0" stopColor="#0b6249" stopOpacity="0.28" />
+          <stop offset="1" stopColor="#0b6249" stopOpacity="0" />
+        </radialGradient>
+        <linearGradient id={`${uid}-wood`} x1="0" x2="1">
+          <stop offset="0" stopColor="#b8925a" />
+          <stop offset="0.5" stopColor="#e0c48f" />
+          <stop offset="1" stopColor="#9a7a32" />
+        </linearGradient>
+        <marker id={`${uid}-tip`} viewBox="0 0 10 10" refX="6" refY="5" markerWidth="4.2" markerHeight="4.2" orient="auto-start-reverse">
+          <path d="M0 0L10 5L0 10Z" fill="#d8432f" />
+        </marker>
+      </defs>
+
+      <rect width="200" height="160" fill={`url(#${uid}-bg)`} />
+      {props.includes("mat") && <rect x="12" y="127" width="176" height="9" rx="4.5" fill="#138A65" opacity="0.25" />}
+      {props.includes("wall") && <rect x="26" y="8" width="14" height="146" rx="3" fill="#c7d2cd" />}
+      <ellipse cx={(minX + maxX) / 2} cy={Math.min(groundY, 152)} rx={(maxX - minX) / 2 + 14} ry="6" fill={`url(#${uid}-shadow)`} />
+
+      {props.includes("chair") && (
+        <g strokeLinecap="round" fill="none">
+          <path d="M92 109h42" stroke={`url(#${uid}-wood)`} strokeWidth="7" />
+          <path d="M95 112v38M131 112v38" stroke="#9a7a32" strokeWidth="4" />
+          <path d="M91 109V62" stroke={`url(#${uid}-wood)`} strokeWidth="5" />
+        </g>
+      )}
+
+      {/* Lado mais distante (mais escuro) */}
+      {limb(1, "far")}
+
+      {/* Tronco, pescoço e cabeça */}
+      <Cyl id={`${uid}-to`} a={f.neck} b={f.hip} seg="torso" tone={tone("torso")} depth="near" />
+      <Joint at={f.hip} r={10} tone={tone("torso")} gid={uid} />
+      <Joint at={f.neck} r={8.5} tone={tone("torso")} gid={uid} />
+      <Cyl id={`${uid}-nk`} a={f.neck} b={f.head} seg="neck" tone={tone("neck")} depth="near" />
+      <circle cx={f.head[0]} cy={f.head[1]} r="10.5" fill={`url(#${uid}-gray)`} />
+
+      {/* Lado mais próximo */}
+      {limb(0, "near")}
+
+      {props.includes("breath") && (
+        <g stroke="#138A65" strokeWidth="2.5" fill="none" strokeLinecap="round" opacity="0.75">
+          <path d="M122 30c8-6 14 6 22 0" />
+          <path d="M126 42c8-6 14 6 22 0" />
+        </g>
+      )}
+
+      {/* Setas de movimento */}
+      {v.arrows.map((d, i) => (
+        <g key={i} fill="none" strokeLinecap="round">
+          <path d={d} stroke="#ffffff" strokeWidth="6.5" opacity="0.9" />
+          <path d={d} stroke="#d8432f" strokeWidth="3.4" markerEnd={`url(#${uid}-tip)`} />
+        </g>
+      ))}
     </svg>
   );
 }

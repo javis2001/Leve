@@ -104,6 +104,8 @@ export interface Exercise {
   pose: Pose;
   /** Vídeo licenciado e validado (opcional, cadastrado no admin) */
   videoUrl?: string | null;
+  /** Imagem própria/licenciada (opcional, cadastrada no admin); substitui a ilustração */
+  imageUrl?: string | null;
 }
 
 export interface JourneyDay {

@@ -5,6 +5,7 @@ import { Clock, Gauge } from "lucide-react";
 import { PageHeader } from "@/components/app/page-header";
 import { SafetyNotice } from "@/components/app/safety-notice";
 import { ExercisePose } from "@/components/brand/exercise-pose";
+import { exerciseVisual } from "@/lib/content/exercise-visuals";
 import { EXERCISE_CATEGORIES, type Exercise, type ExerciseCategory } from "@/lib/content/types";
 import { cn } from "@/lib/utils";
 
@@ -50,10 +51,16 @@ export function ExerciseLibrary({ exercises }: { exercises: Exercise[] }) {
                   <li key={e.slug}>
                     <Link href={`/app/exercicios/${e.slug}`} className="group block overflow-hidden rounded-3xl border border-line/80 bg-white shadow-soft transition hover:-translate-y-0.5 hover:shadow-lift">
                       <div className="aspect-[5/4] overflow-hidden">
-                        <ExercisePose pose={e.pose} label={e.name} className="transition duration-500 group-hover:scale-105" />
+                        {e.imageUrl ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img src={e.imageUrl} alt={e.name} className="h-full w-full object-cover" loading="lazy" />
+                        ) : (
+                          <ExercisePose pose={e.pose} slug={e.slug} label={e.name} className="transition duration-500 group-hover:scale-105" />
+                        )}
                       </div>
                       <div className="p-3.5">
                         <h3 className="line-clamp-2 font-bold leading-snug">{e.name}</h3>
+                        <p className="mt-1 text-xs font-bold text-[#b23a2a]">{exerciseVisual(e.slug, e.pose).muscles}</p>
                         <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs font-semibold text-muted">
                           <span className="inline-flex items-center gap-1">
                             <Clock className="size-3.5" /> {e.duration}

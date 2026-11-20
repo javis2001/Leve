@@ -94,6 +94,7 @@ const ExerciseSchema = z.object({
   safety: z.array(z.string().max(300)).min(1).max(10),
   pose: z.string().max(40),
   videoUrl: z.string().url().max(500).nullable().optional(),
+  imageUrl: z.string().url().max(500).nullable().optional(),
 });
 
 export const saveExercise = wrap(async (fd) => {
@@ -110,6 +111,7 @@ export const saveExercise = wrap(async (fd) => {
     safety: lines(fd.get("safety")),
     pose: fd.get("pose"),
     videoUrl: String(fd.get("videoUrl") ?? "") || null,
+    imageUrl: String(fd.get("imageUrl") ?? "") || null,
   });
   const { error } = await sb.from("exercises").upsert({ slug: e.slug, data: e, published: fd.get("published") === "on" });
   if (error) throw new Error(error.message);

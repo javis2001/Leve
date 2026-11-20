@@ -100,7 +100,7 @@ export function DayView({ day, exercises, recipe }: { day: JourneyDay; exercises
                         <li key={e.slug}>
                           <Link href={`/app/exercicios/${e.slug}`} className="flex items-center gap-3 rounded-2xl border border-line p-2.5 transition hover:border-emerald/40 hover:bg-mint/40">
                             <span className="h-14 w-16 shrink-0 overflow-hidden rounded-xl">
-                              <ExercisePose pose={e.pose} label={e.name} />
+                              <ExercisePose pose={e.pose} slug={e.slug} label={e.name} />
                             </span>
                             <span className="min-w-0">
                               <span className="block truncate text-sm font-bold">{e.name}</span>
