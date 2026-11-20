@@ -83,7 +83,7 @@ await step("Landing: consentimento + UTMs preservados no checkout + InitiateChec
     else r.continue();
   });
   await p.goto(BASE + "/?utm_source=meta&utm_campaign=lancamento&utm_content=video1&fbclid=abc123", { waitUntil: "load" });
-  await clickText(p, "button", "Aceitar todos");
+  await clickText(p, "button", "Ok, entendi");
   await sleep(300);
   await p.$eval('[data-placement="hero"]', (b) => b.click());
   await sleep(1000);
@@ -102,7 +102,7 @@ await step("Landing: consentimento + UTMs preservados no checkout + InitiateChec
   await p.close();
 });
 
-await step("Landing: recusar cookies não carrega pixels", async () => {
+await step("Landing: quem recusa a medição não carrega pixels", async () => {
   const p = await newPage(true, true);
   const ext = [];
   await p.setRequestInterception(true);
@@ -111,9 +111,12 @@ await step("Landing: recusar cookies não carrega pixels", async () => {
     r.continue();
   });
   await p.goto(BASE + "/", { waitUntil: "load" });
-  await clickText(p, "button", "Somente essenciais");
-  await sleep(500);
-  assert(!ext.some((u) => /facebook|googletagmanager|utmify/.test(u)), "pixel carregado sem consentimento");
+  await clickText(p, "button", "Recusar medição");
+  await sleep(300);
+  ext.length = 0;
+  await p.goto(BASE + "/", { waitUntil: "load" });
+  await sleep(800);
+  assert(!ext.some((u) => /facebook|googletagmanager|utmify/.test(u)), "pixel carregado depois de recusar a medição: " + ext.filter((u) => /facebook|googletagmanager|utmify/.test(u)).join(", "));
   await p.close();
 });
 

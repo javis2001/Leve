@@ -26,7 +26,7 @@ export function ConsentBanner() {
         <div className="text-sm text-ink/85">
           <p className="font-bold text-ink">Sua privacidade importa</p>
           <p className="mt-1">
-            Usamos cookies essenciais para o site funcionar. Com sua permissão, também usamos cookies de medição de campanhas (Meta, Google e UTMify). Nenhum dado
+            Usamos cookies essenciais e cookies de medição de campanhas (Meta, Google e UTMify). Você pode recusar a medição quando quiser. Nenhum dado
             de saúde ou do seu diário é compartilhado.{" "}
             <Link href="/privacidade" className="font-semibold text-emerald underline underline-offset-2">
               Saiba mais
@@ -36,9 +36,9 @@ export function ConsentBanner() {
       </div>
       <div className="mt-4 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
         <Button variant="outline" onClick={() => (setConsent("denied"), setOpen(false))}>
-          Somente essenciais
+          Recusar medição
         </Button>
-        <Button onClick={() => (setConsent("granted"), setOpen(false))}>Aceitar todos</Button>
+        <Button onClick={() => (setConsent("granted"), setOpen(false))}>Ok, entendi</Button>
       </div>
     </div>
   );

@@ -7,10 +7,11 @@ import { captureAttribution, getConsent, track, type Consent } from "@/lib/track
 
 const UTMIFY_SCRIPT_URL = process.env.NEXT_PUBLIC_UTMIFY_SCRIPT_URL || "https://cdn.utmify.com.br/scripts/pixel/pixel.js";
 
-/** Carrega Meta Pixel, GA4 e UTMify somente após consentimento e apenas fora da área de membros. */
+/** Carrega Meta Pixel, GA4 e UTMify nas páginas públicas, exceto para quem recusou a medição. Nunca na área de membros. */
 export function TrackingScripts() {
   const pathname = usePathname();
-  const [consent, setConsentState] = useState<Consent | null>(null);
+  // undefined = ainda não lido do navegador (não carrega nada até saber a escolha da pessoa)
+  const [consent, setConsentState] = useState<Consent | null | undefined>(undefined);
   const isPublic = !pathname.startsWith("/app") && !pathname.startsWith("/admin");
 
   useEffect(() => {
@@ -26,13 +27,13 @@ export function TrackingScripts() {
   }, [pathname, consent]);
 
   useEffect(() => {
-    if (consent === "granted" && isPublic) {
+    if (consent !== undefined && consent !== "denied" && isPublic) {
       const t = setTimeout(() => track("PageView", {}, pathname), 300);
       return () => clearTimeout(t);
     }
   }, [pathname, consent, isPublic]);
 
-  if (consent !== "granted" || !isPublic) return null;
+  if (consent === undefined || consent === "denied" || !isPublic) return null;
   const { metaPixelId, ga4Id, utmifyPixelId } = PUBLIC_CONFIG;
 
   return (

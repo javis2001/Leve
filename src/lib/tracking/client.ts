@@ -61,7 +61,7 @@ export function captureAttribution(): Record<string, string> {
       if (v) current[k] = v.slice(0, 200);
     }
     if (Object.keys(current).length) sessionStorage.setItem(UTM_KEY, JSON.stringify(current));
-    if (Object.keys(current).length && getConsent() === "granted") {
+    if (Object.keys(current).length && getConsent() !== "denied") {
       localStorage.setItem(UTM_KEY, JSON.stringify({ ...current, captured_at: new Date().toISOString() }));
     }
   } catch {
@@ -74,7 +74,7 @@ export function getAttribution(): Record<string, string> {
   try {
     const fromUrl = captureAttribution();
     if (Object.keys(fromUrl).length) return fromUrl;
-    const s = sessionStorage.getItem(UTM_KEY) ?? (getConsent() === "granted" ? localStorage.getItem(UTM_KEY) : null);
+    const s = sessionStorage.getItem(UTM_KEY) ?? (getConsent() !== "denied" ? localStorage.getItem(UTM_KEY) : null);
     if (!s) return {};
     const parsed = JSON.parse(s) as Record<string, string>;
     delete parsed.captured_at;
@@ -120,7 +120,7 @@ const GA_NAMES: Record<TrackEvent, string> = {
  * Purchase NÃO é disparado no navegador: é enviado pelo servidor após pagamento confirmado.
  */
 export function track(event: TrackEvent, params: { value?: number; currency?: string; content_name?: string } = {}, dedupeKey?: string) {
-  if (typeof window === "undefined" || getConsent() !== "granted") return;
+  if (typeof window === "undefined" || getConsent() === "denied") return;
   const key = `${event}:${dedupeKey ?? window.location.pathname}`;
   if (alreadySent(key)) return;
   const eventID = `${event}-${Math.random().toString(36).slice(2, 10)}-${Date.now()}`;
