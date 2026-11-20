@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Button, type ButtonProps } from "@/components/ui/button";
 import { buildCheckoutUrl, track } from "@/lib/tracking/client";
@@ -21,6 +22,14 @@ export function CheckoutButton({
   size?: ButtonProps["size"];
   placement?: string;
 }) {
+  // O link já sai com as UTMs; o clique segue o link normalmente (sem redirecionar via JS),
+  // para que o pixel da UTMify e o da Meta consigam registrar o InitiateCheckout antes da troca de página.
+  const [href, setHref] = useState(url);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (url) setHref(buildCheckoutUrl(url));
+  }, [url]);
+
   if (!url)
     return (
       <div className={cn("text-center", className)}>
@@ -35,17 +44,18 @@ export function CheckoutButton({
       asChild
       variant={variant}
       size={size}
-      className={cn("group h-auto min-h-14 whitespace-normal py-3 text-center leading-snug sm:whitespace-nowrap", className)}
+      className={cn("botao-checkout group h-auto min-h-14 whitespace-normal py-3 text-center leading-snug sm:whitespace-nowrap", className)}
       data-placement={placement}
     >
       <a
-        href={url}
+        href={href}
         rel="noopener"
+        id={`botao-checkout-${placement}`}
+        data-checkout="true"
         onClick={(e) => {
           const finalUrl = buildCheckoutUrl(url);
+          if (e.currentTarget.href !== finalUrl) e.currentTarget.href = finalUrl;
           track("InitiateCheckout", { value: priceCents / 100, currency: "BRL", content_name: "Vida Leve" }, "checkout");
-          e.preventDefault();
-          window.location.href = finalUrl;
         }}
       >
         {label} <ArrowRight className="transition group-hover:translate-x-0.5" />
