@@ -21,7 +21,7 @@ export const PUBLIC_CONFIG = {
   supportWhatsapp: process.env.NEXT_PUBLIC_SUPPORT_WHATSAPP ?? "",
   companyName: process.env.NEXT_PUBLIC_COMPANY_NAME ?? "",
   companyDocument: process.env.NEXT_PUBLIC_COMPANY_DOCUMENT ?? "",
-  metaPixelId: process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "",
+  metaPixelId: process.env.NEXT_PUBLIC_META_PIXEL_ID || "1445063967816814",
   ga4Id: process.env.NEXT_PUBLIC_GA4_ID ?? "",
   utmifyPixelId: process.env.NEXT_PUBLIC_UTMIFY_PIXEL_ID ?? "",
 };
