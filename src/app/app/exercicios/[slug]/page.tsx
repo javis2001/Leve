@@ -9,6 +9,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { getExercises } from "@/lib/content/server";
 import { exerciseVisual } from "@/lib/content/exercise-visuals";
 import { EXERCISE_CATEGORIES } from "@/lib/content/types";
+import { isPhotoImage } from "@/lib/content/exercise-visuals";
+import { ExercisePhoto } from "@/components/brand/exercise-photo";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -37,7 +39,7 @@ export default async function ExercisePage({ params }: Params) {
             <video src={e.videoUrl} controls playsInline preload="metadata" className="h-full w-full bg-black object-contain" aria-label={`Vídeo: ${e.name}`} />
           ) : e.imageUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={e.imageUrl} alt={`Ilustração: ${e.name}`} className="h-full w-full bg-[radial-gradient(circle_at_50%_35%,#ffffff,#e3eae6)] object-contain p-2" />
+            isPhotoImage(e.imageUrl) ? <ExercisePhoto src={e.imageUrl} alt={`Imagem: ${e.name}`} lazy={false} /> : <img src={e.imageUrl} alt={`Ilustração: ${e.name}`} className="h-full w-full bg-[radial-gradient(circle_at_50%_35%,#ffffff,#e3eae6)] object-contain p-2" />
           ) : (
             <ExercisePose pose={e.pose} slug={e.slug} label={`Ilustração: ${e.name}`} />
           )}

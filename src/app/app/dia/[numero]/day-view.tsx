@@ -15,6 +15,7 @@ import { Progress } from "@/components/ui/progress";
 import type { Exercise, JourneyDay, Recipe } from "@/lib/content/types";
 import { useUserData } from "@/lib/data/provider";
 import { cn } from "@/lib/utils";
+import { isPhotoImage } from "@/lib/content/exercise-visuals";
 
 export function DayView({ day, exercises, recipe }: { day: JourneyDay; exercises: Exercise[]; recipe: Recipe | null }) {
   const { saveDay } = useUserData();
@@ -102,7 +103,7 @@ export function DayView({ day, exercises, recipe }: { day: JourneyDay; exercises
                             <span className="h-14 w-16 shrink-0 overflow-hidden rounded-xl">
                               {e.imageUrl ? (
                                 // eslint-disable-next-line @next/next/no-img-element
-                                <img src={e.imageUrl} alt={e.name} className="h-full w-full bg-[#eef2f0] object-contain" loading="lazy" />
+                                <img src={e.imageUrl} alt={e.name} className={isPhotoImage(e.imageUrl) ? "h-full w-full object-cover" : "h-full w-full bg-[#eef2f0] object-contain"} loading="lazy" />
                               ) : (
                                 <ExercisePose pose={e.pose} slug={e.slug} label={e.name} />
                               )}

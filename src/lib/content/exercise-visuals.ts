@@ -81,3 +81,8 @@ const BY_POSE: Record<Pose, ExerciseVisual> = {
 export function exerciseVisual(slug: string | undefined, pose: Pose): ExerciseVisual {
   return (slug && BY_SLUG[slug]) || BY_POSE[pose];
 }
+
+/** Fotos (jpg) ocupam o quadro inteiro; ilustrações com fundo transparente ficam centralizadas. */
+export function isPhotoImage(url?: string | null) {
+  return Boolean(url && /\.jpe?g(\?|$)/i.test(url));
+}

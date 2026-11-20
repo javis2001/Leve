@@ -8,6 +8,8 @@ import { ExercisePose } from "@/components/brand/exercise-pose";
 import { exerciseVisual } from "@/lib/content/exercise-visuals";
 import { EXERCISE_CATEGORIES, type Exercise, type ExerciseCategory } from "@/lib/content/types";
 import { cn } from "@/lib/utils";
+import { isPhotoImage } from "@/lib/content/exercise-visuals";
+import { ExercisePhoto } from "@/components/brand/exercise-photo";
 
 export function ExerciseLibrary({ exercises }: { exercises: Exercise[] }) {
   const [cat, setCat] = useState<ExerciseCategory | "all">("all");
@@ -53,7 +55,7 @@ export function ExerciseLibrary({ exercises }: { exercises: Exercise[] }) {
                       <div className="aspect-[5/4] overflow-hidden">
                         {e.imageUrl ? (
                           // eslint-disable-next-line @next/next/no-img-element
-                          <img src={e.imageUrl} alt={e.name} className="h-full w-full bg-[radial-gradient(circle_at_50%_35%,#ffffff,#e3eae6)] object-contain p-1" loading="lazy" />
+                          isPhotoImage(e.imageUrl) ? <ExercisePhoto src={e.imageUrl} alt={e.name} /> : <img src={e.imageUrl} alt={e.name} className="h-full w-full bg-[radial-gradient(circle_at_50%_35%,#ffffff,#e3eae6)] object-contain p-1" loading="lazy" />
                         ) : (
                           <ExercisePose pose={e.pose} slug={e.slug} label={e.name} className="transition duration-500 group-hover:scale-105" />
                         )}
