@@ -15,7 +15,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ slug: st
   try {
     const buf = await renderMaterial(m.slug as MaterialSlug);
     const inline = new URL(req.url).searchParams.get("ver") === "1";
-    return pdfResponse(buf, `vida-leve-30-${m.slug}.pdf`, inline);
+    return pdfResponse(buf, `vida-leve-${m.slug}.pdf`, inline);
   } catch (e) {
     console.error("[pdf]", e);
     return new Response("Não foi possível gerar o PDF.", { status: 500 });

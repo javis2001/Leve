@@ -10,7 +10,7 @@ export function ViewContentTrigger({ priceCents }: { priceCents: number }) {
     if (!el) return;
     const io = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
-        track("ViewContent", { value: priceCents / 100, currency: "BRL", content_name: "Vida Leve 30" }, "offer");
+        track("ViewContent", { value: priceCents / 100, currency: "BRL", content_name: "Vida Leve" }, "offer");
         io.disconnect();
       }
     });

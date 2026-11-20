@@ -31,7 +31,7 @@ export const getPublicSettings = cache(async () => {
   }
   return {
     offer: {
-      productName: offer.productName || "Vida Leve 30",
+      productName: offer.productName || "Vida Leve",
       priceCents: offer.priceCents || PUBLIC_CONFIG.priceCents,
       checkoutUrl: offer.checkoutUrl || PUBLIC_CONFIG.checkoutUrl,
       guaranteeEnabled: Boolean(offer.guaranteeEnabled && offer.guaranteeText),

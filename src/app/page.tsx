@@ -40,7 +40,7 @@ const FAQ = [
   ["Como baixo os PDFs?", "Na área de membros, abra “Materiais” e toque em “Baixar”. São 7 PDFs com capa e paginação, prontos para ler no celular ou imprimir em A4."],
   ["E se eu não conseguir fazer um exercício?", "Todo exercício tem adaptações (inclusive versões sentadas). Faça a versão mais confortável e pare se sentir dor, tontura ou falta de ar. Se você tem alguma condição de saúde, converse com um profissional antes de começar."],
   ["Como funciona o suporte?", "Você pode falar com a equipe pelos canais de contato informados no rodapé desta página. Respondemos dúvidas sobre acesso, pagamentos e uso da plataforma."],
-  ["O programa promete emagrecimento?", "Não. O Vida Leve 30 é educativo e foca em bem-estar, consistência e autonomia. Não fazemos promessas de resultados físicos e não propomos dietas restritivas."],
+  ["O programa promete emagrecimento?", "Não. O Vida Leve é educativo e foca em bem-estar, consistência e autonomia. Não fazemos promessas de resultados físicos e não propomos dietas restritivas."],
 ];
 
 export default async function LandingPage() {
@@ -53,7 +53,7 @@ export default async function LandingPage() {
       {/* Navegação */}
       <header className="sticky top-0 z-40 border-b border-line/50 bg-cream/80 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
-          <Link href="/" aria-label="Vida Leve 30 — início">
+          <Link href="/" aria-label="Vida Leve — início">
             <Logo />
           </Link>
           <nav className="flex items-center gap-1 sm:gap-2" aria-label="Principal">

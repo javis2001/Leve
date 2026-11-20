@@ -31,7 +31,7 @@ export function ProfileView({ email, mode }: { email: string; mode: "demo" | "su
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
-    a.download = "meus-dados-vida-leve-30.json";
+    a.download = "meus-dados-vida-leve.json";
     a.click();
   };
 

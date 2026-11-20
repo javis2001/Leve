@@ -113,7 +113,7 @@ export function Cover({ title, subtitle, eyebrow, note }: { title: string; subti
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         <LogoPdf size={46} light />
         <Text style={{ fontFamily: "Playfair", fontWeight: 600, fontSize: 20, marginLeft: 12 }}>
-          Vida Leve <Text style={{ color: C.gold }}>30</Text>
+          Vida <Text style={{ color: C.gold, fontStyle: "italic", fontWeight: 500 }}>Leve</Text>
         </Text>
       </View>
       <View style={{ marginTop: 210 }}>
@@ -122,7 +122,7 @@ export function Cover({ title, subtitle, eyebrow, note }: { title: string; subti
         <Text style={{ fontSize: 13, marginTop: 14, color: "#DDEFE6", lineHeight: 1.5, maxWidth: 400 }}>{subtitle}</Text>
       </View>
       <View style={{ position: "absolute", bottom: 0, left: 0, right: 0 }}>
-        <Text style={{ fontSize: 9, color: "#BFDCCF" }}>{note ?? "Material educativo do programa Vida Leve 30. Não substitui orientação de profissionais de saúde."}</Text>
+        <Text style={{ fontSize: 9, color: "#BFDCCF" }}>{note ?? "Material educativo do programa Vida Leve. Não substitui orientação de profissionais de saúde."}</Text>
       </View>
       </View>
     </Page>
@@ -133,7 +133,7 @@ export function ContentPage({ title, children, size = "A4", orientation = "portr
   return (
     <Page size={size} orientation={orientation} style={s.page} wrap>
       <View style={s.header} fixed>
-        <Text>Vida Leve 30</Text>
+        <Text>Vida Leve</Text>
         <Text>{title}</Text>
       </View>
       <View style={[s.footer, { top: orientation === "landscape" ? 560 : 806 }]} fixed>
@@ -148,7 +148,7 @@ export function ContentPage({ title, children, size = "A4", orientation = "portr
 export function Doc({ title, children }: { title: string; children: ReactNode }) {
   registerFonts();
   return (
-    <Document title={`Vida Leve 30 — ${title}`} author="Vida Leve 30" subject={title} language="pt-BR" creator="Vida Leve 30">
+    <Document title={`Vida Leve — ${title}`} author="Vida Leve" subject={title} language="pt-BR" creator="Vida Leve">
       {children}
     </Document>
   );

@@ -1,4 +1,4 @@
-# Relatório de testes — Vida Leve 30
+# Relatório de testes — Vida Leve
 
 Data: 19/11/2026 · Ambiente: Node 22, Next.js 16.4, Google Chrome (headless), PGlite (Postgres 18 em WASM).
 

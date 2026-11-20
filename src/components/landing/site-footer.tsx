@@ -37,7 +37,7 @@ export function SiteFooter({ support }: { support: SupportSettings }) {
         </div>
       </div>
       <div className="border-t border-white/10 px-5 py-6 text-center text-xs text-white/50">
-        © {new Date().getFullYear()} Vida Leve 30
+        © {new Date().getFullYear()} Vida Leve
         {PUBLIC_CONFIG.companyName ? ` · ${PUBLIC_CONFIG.companyName}` : ""}
         {PUBLIC_CONFIG.companyDocument ? ` · CNPJ ${PUBLIC_CONFIG.companyDocument}` : ""}. Todos os direitos reservados.
       </div>

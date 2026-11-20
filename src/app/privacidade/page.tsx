@@ -5,10 +5,10 @@ import { PUBLIC_CONFIG } from "@/lib/env";
 export const metadata: Metadata = { title: "Política de Privacidade" };
 
 export default function PrivacyPage() {
-  const owner = PUBLIC_CONFIG.companyName || "o responsável pela plataforma Vida Leve 30";
+  const owner = PUBLIC_CONFIG.companyName || "o responsável pela plataforma Vida Leve";
   return (
     <LegalPage title="Política de Privacidade" updated="19 de novembro de 2026">
-      <p>Esta Política explica como {owner} (controlador) trata seus dados pessoais na plataforma Vida Leve 30, em conformidade com a Lei Geral de Proteção de Dados (LGPD).</p>
+      <p>Esta Política explica como {owner} (controlador) trata seus dados pessoais na plataforma Vida Leve, em conformidade com a Lei Geral de Proteção de Dados (LGPD).</p>
       <h2>1. Dados que coletamos</h2>
       <ul>
         <li><strong>Cadastro:</strong> nome e e-mail; a senha é armazenada de forma criptografada pelo provedor de autenticação (nunca em texto simples).</li>

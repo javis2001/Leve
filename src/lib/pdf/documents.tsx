@@ -14,7 +14,7 @@ export interface PdfContent {
 }
 
 export const MATERIALS = [
-  { slug: "guia-inicial", title: "Guia inicial do Vida Leve 30", description: "Como funciona o programa, as 4 semanas e como aproveitar a plataforma." },
+  { slug: "guia-inicial", title: "Guia inicial do Vida Leve", description: "Como funciona o programa, as 4 semanas e como aproveitar a plataforma." },
   { slug: "calendario-30-dias", title: "Calendário dos 30 dias", description: "Todos os dias da jornada em uma visão para marcar e acompanhar." },
   { slug: "livro-de-receitas", title: "Livro das 50 receitas", description: "As 50 receitas completas, com ingredientes, preparo e substituições." },
   { slug: "planner-semanal", title: "Planner semanal", description: "Modelo para planejar refeições e um exemplo de semana preenchida." },
@@ -30,12 +30,12 @@ const catLabel = (id: string) => RECIPE_CATEGORIES.find((c) => c.id === id)?.lab
 function GuiaInicial({ days }: PdfContent) {
   return (
     <Doc title="Guia inicial">
-      <Cover eyebrow="Guia inicial" title="Boas-vindas à sua jornada" subtitle="Tudo o que você precisa saber para começar o Vida Leve 30 com tranquilidade e aproveitar cada ferramenta." />
+      <Cover eyebrow="Guia inicial" title="Boas-vindas à sua jornada" subtitle="Tudo o que você precisa saber para começar o Vida Leve com tranquilidade e aproveitar cada ferramenta." />
       <ContentPage title="Guia inicial">
         <Text style={s.eyebrow}>Boas-vindas</Text>
         <Text style={s.h1}>Uma vida mais leve começa com pequenos passos</Text>
         <Text style={s.p}>
-          O Vida Leve 30 é um programa digital de 30 dias criado para ajudar você a desenvolver hábitos saudáveis de forma gradual, realista e gentil. Não é uma dieta,
+          O Vida Leve é um programa digital de 30 dias criado para ajudar você a desenvolver hábitos saudáveis de forma gradual, realista e gentil. Não é uma dieta,
           não é um desafio de resultados rápidos e não exige academia. É um convite para cuidar de si com consistência, aprendendo um pouco a cada dia.
         </Text>
         <Text style={s.p}>

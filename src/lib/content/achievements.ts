@@ -69,7 +69,7 @@ export const ACHIEVEMENTS: Achievement[] = [
     id: "jornada-completa",
     title: "Jornada de 30 dias concluída",
     description: "Concluir os 30 dias.",
-    message: "Parabéns! Você completou a jornada Vida Leve 30.",
+    message: "Parabéns! Você completou a jornada Vida Leve.",
     icon: "Trophy",
     test: (s) => s.completedDays >= 30,
     progress: days(30),

@@ -1,5 +1,5 @@
 -- ════════════════════════════════════════════════════════════════════
--- Vida Leve 30 — esquema principal
+-- Vida Leve — esquema principal
 -- Execute no SQL Editor do Supabase (ou via `supabase db push`).
 -- ════════════════════════════════════════════════════════════════════
 
@@ -422,6 +422,6 @@ create policy "materiais: membros leem" on storage.objects for select using (buc
 
 -- Configurações iniciais (podem ser alteradas no painel /admin/configuracoes)
 insert into public.site_settings (key, value, is_public) values
-  ('offer', '{"productName":"Vida Leve 30","priceCents":2990,"checkoutUrl":"","guaranteeEnabled":false,"guaranteeText":""}', true),
+  ('offer', '{"productName":"Vida Leve","priceCents":2990,"checkoutUrl":"","guaranteeEnabled":false,"guaranteeText":""}', true),
   ('support', '{"email":"","whatsapp":"","hours":""}', true)
 on conflict (key) do nothing;

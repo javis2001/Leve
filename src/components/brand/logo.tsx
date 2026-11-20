@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 /** Símbolo: folha que nasce de uma curva ascendente — crescimento leve e contínuo. */
-export function LogoMark({ className, title = "Vida Leve 30" }: { className?: string; title?: string }) {
+export function LogoMark({ className, title = "Vida Leve" }: { className?: string; title?: string }) {
   return (
     <svg viewBox="0 0 48 48" className={cn("size-10", className)} role="img" aria-label={title}>
       <rect width="48" height="48" rx="14" fill="#0F7A5A" />
@@ -18,9 +18,8 @@ export function Logo({ className, tone = "dark", compact = false }: { className?
     <span className={cn("inline-flex items-center gap-2.5", className)}>
       <LogoMark className="size-9 shrink-0" />
       {!compact && (
-        <span className={cn("leading-none", tone === "light" ? "text-white" : "text-forest")}>
-          <span className="font-display text-[1.35rem] font-semibold">Vida Leve</span>
-          <span className="ml-1 font-display text-[1.35rem] font-semibold text-gold">30</span>
+        <span className={cn("font-display text-[1.4rem] leading-none font-semibold tracking-tight", tone === "light" ? "text-white" : "text-forest")}>
+          Vida <em className={cn("font-medium", tone === "light" ? "text-gold" : "text-emerald")}>Leve</em>
         </span>
       )}
     </span>

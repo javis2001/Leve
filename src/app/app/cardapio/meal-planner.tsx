@@ -92,7 +92,7 @@ export function MealPlanner({ recipes }: { recipes: Recipe[] }) {
             const url = URL.createObjectURL(blob);
             const a = document.createElement("a");
             a.href = url;
-            a.download = `cardapio-vida-leve-30-${weekStart}.pdf`;
+            a.download = `cardapio-vida-leve-${weekStart}.pdf`;
             a.click();
             setTimeout(() => URL.revokeObjectURL(url), 2000);
           } catch (e) {

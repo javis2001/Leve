@@ -43,7 +43,7 @@ export function CheckoutButton({
         rel="noopener"
         onClick={(e) => {
           const finalUrl = buildCheckoutUrl(url);
-          track("InitiateCheckout", { value: priceCents / 100, currency: "BRL", content_name: "Vida Leve 30" }, "checkout");
+          track("InitiateCheckout", { value: priceCents / 100, currency: "BRL", content_name: "Vida Leve" }, "checkout");
           e.preventDefault();
           window.location.href = finalUrl;
         }}

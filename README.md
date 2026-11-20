@@ -1,4 +1,4 @@
-# Vida Leve 30 — Sua jornada de bem-estar
+# Vida Leve — Sua jornada de bem-estar
 
 Plataforma digital premium de 30 dias com página de vendas, área de membros, 50 receitas, biblioteca de exercícios, cardápio semanal, rastreador de hábitos, diário, conquistas, 7 PDFs gerados automaticamente e painel administrativo.
 
@@ -111,7 +111,7 @@ As migrações criam: tabelas, **Row Level Security** em todas as tabelas, bucke
 ```bash
 git init            # (o projeto já vem com um commit inicial)
 git add .
-git commit -m "Vida Leve 30"
+git commit -m "Vida Leve"
 git branch -M main
 git remote add origin https://github.com/SEU-USUARIO/vida-leve-30.git
 git push -u origin main

@@ -5,11 +5,11 @@ import { PUBLIC_CONFIG } from "@/lib/env";
 export const metadata: Metadata = { title: "Termos de Uso" };
 
 export default function TermsPage() {
-  const owner = PUBLIC_CONFIG.companyName || "o responsável pela plataforma Vida Leve 30";
+  const owner = PUBLIC_CONFIG.companyName || "o responsável pela plataforma Vida Leve";
   return (
     <LegalPage title="Termos de Uso" updated="19 de novembro de 2026">
-      <p>Estes Termos regulam o uso da plataforma Vida Leve 30, oferecida por {owner}{PUBLIC_CONFIG.companyDocument ? ` (CNPJ ${PUBLIC_CONFIG.companyDocument})` : ""}. Ao criar uma conta, você declara ter lido e concordado com eles.</p>
-      <h2>1. O que é o Vida Leve 30</h2>
+      <p>Estes Termos regulam o uso da plataforma Vida Leve, oferecida por {owner}{PUBLIC_CONFIG.companyDocument ? ` (CNPJ ${PUBLIC_CONFIG.companyDocument})` : ""}. Ao criar uma conta, você declara ter lido e concordado com eles.</p>
+      <h2>1. O que é o Vida Leve</h2>
       <p>Programa digital educativo de 30 dias sobre hábitos saudáveis, com conteúdos, receitas, exercícios de baixo impacto e ferramentas de organização. O conteúdo tem caráter informativo e não constitui diagnóstico, tratamento, prescrição médica, nutricional ou de atividade física.</p>
       <h2>2. Saúde e segurança</h2>
       <ul>

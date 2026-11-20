@@ -23,5 +23,5 @@ export async function POST(req: Request) {
   const buf = await renderToBuffer(
     MealPlanDocument({ weekLabel: `${formatDateBR(ws, { day: "2-digit", month: "2-digit" })} a ${formatDateBR(addDays(ws, 6), { day: "2-digit", month: "2-digit", year: "numeric" })}`, slots, recipes: await getRecipes() }),
   );
-  return pdfResponse(buf, `cardapio-vida-leve-30-${weekStart}.pdf`);
+  return pdfResponse(buf, `cardapio-vida-leve-${weekStart}.pdf`);
 }
