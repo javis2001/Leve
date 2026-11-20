@@ -188,8 +188,8 @@ export default async function LandingPage() {
               ))}
             </div>
             <Reveal className="mt-6">
-              <p className="flex items-center justify-center gap-2 text-center text-sm font-semibold text-forest">
-                <Sparkles className="size-4 text-gold-deep" /> E mais: 7 materiais em PDF, lista de compras automática e sistema de conquistas.
+              <p className="text-center text-sm font-semibold text-forest">
+                <Sparkles className="mr-1.5 inline size-4 align-[-3px] text-gold-deep" />E mais: 7 materiais em PDF, lista de compras automática e sistema de conquistas.
               </p>
             </Reveal>
           </div>

@@ -24,7 +24,7 @@ export function CheckoutButton({
   if (!url)
     return (
       <div className={cn("text-center", className)}>
-        <Button variant={variant} size={size} disabled className="w-full">
+        <Button variant={variant} size={size} disabled className="h-auto min-h-14 w-full whitespace-normal py-3 leading-snug">
           {label}
         </Button>
         <p className="mt-2 text-xs text-muted">Checkout em configuração. Volte em breve.</p>
@@ -35,7 +35,7 @@ export function CheckoutButton({
       asChild
       variant={variant}
       size={size}
-      className={cn("group", className)}
+      className={cn("group h-auto min-h-14 whitespace-normal py-3 text-center leading-snug", className)}
       data-placement={placement}
     >
       <a

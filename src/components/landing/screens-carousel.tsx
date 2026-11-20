@@ -17,8 +17,13 @@ export function ScreensCarousel() {
   const ref = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const go = (i: number) => {
-    const el = ref.current?.children[i] as HTMLElement | undefined;
-    el?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    const box = ref.current;
+    const el = box?.children[i] as HTMLElement | undefined;
+    if (!box || !el) return;
+    const offset = box.scrollLeft + el.getBoundingClientRect().left - box.getBoundingClientRect().left;
+    const desktop = window.matchMedia("(min-width: 640px)").matches;
+    const left = desktop ? offset - parseFloat(getComputedStyle(box).paddingLeft) : offset - (box.clientWidth - el.offsetWidth) / 2;
+    box.scrollTo({ left, behavior: "smooth" });
   };
   return (
     <div>
@@ -29,14 +34,14 @@ export function ScreensCarousel() {
           const w = (el.children[0] as HTMLElement)?.offsetWidth ?? 1;
           setActive(Math.min(SCREENS.length - 1, Math.round(el.scrollLeft / (w + 24))));
         }}
-        className="no-scrollbar flex snap-x snap-mandatory gap-6 overflow-x-auto px-[calc(50%-140px)] pb-6 sm:px-[calc(50%-160px)]"
+        className="no-scrollbar flex snap-x snap-mandatory gap-6 overflow-x-auto px-[calc(50%-140px)] pb-6 sm:scroll-px-[max(2rem,calc((100%-72rem)/2+2rem))] sm:px-[max(2rem,calc((100%-72rem)/2+2rem))]"
         role="region"
         aria-roledescription="carrossel"
         aria-label="Telas da plataforma"
       >
         {SCREENS.map((s, i) => (
-          <figure key={s.src} className="w-[280px] shrink-0 snap-center sm:w-[320px]" aria-roledescription="slide" aria-label={`${i + 1} de ${SCREENS.length}: ${s.title}`}>
-            <Phone src={s.src} alt={`Tela real da plataforma: ${s.title}`} className={cn("transition duration-500", active === i ? "scale-100" : "scale-95 opacity-70")} />
+          <figure key={s.src} className="w-[280px] shrink-0 snap-center sm:w-[300px] sm:snap-start" aria-roledescription="slide" aria-label={`${i + 1} de ${SCREENS.length}: ${s.title}`}>
+            <Phone src={s.src} alt={`Tela real da plataforma: ${s.title}`} className={cn("transition duration-500", active === i ? "scale-100" : "scale-95 opacity-70 sm:scale-100 sm:opacity-100")} />
             <figcaption className="mt-5 text-center">
               <p className="font-bold text-forest">{s.title}</p>
               <p className="mt-1 text-sm text-muted">{s.text}</p>

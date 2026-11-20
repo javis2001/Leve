@@ -57,13 +57,13 @@ await page.evaluateOnNewDocument((d) => {
   localStorage.setItem("vl30-demo-v1", JSON.stringify(d));
   localStorage.setItem("vl30-consent", "denied");
 }, data);
-const css = `[data-demo-banner]{display:none!important} [data-sonner-toaster]{display:none!important} *{animation-duration:0s!important;transition-duration:0s!important}`;
+const css = `nextjs-portal{display:none!important} [data-demo-banner]{display:none!important} [data-sonner-toaster]{display:none!important} *{animation-duration:0s!important;transition-duration:0s!important}`;
 
 const shots = [
   ["dashboard", "/app"],
   ["receitas", "/app/receitas"],
   ["jornada", "/app/jornada"],
-  ["exercicios", "/app/exercicios"],
+  ["exercicios", "/app/exercicios", "Mobilidade"],
   ["calendario", "/app/habitos", "Calendário de conclusão"],
   ["progresso", "/app/progresso"],
 ];
