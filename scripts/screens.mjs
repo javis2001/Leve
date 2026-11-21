@@ -63,7 +63,7 @@ const shots = [
   ["dashboard", "/app"],
   ["receitas", "/app/receitas"],
   ["jornada", "/app/jornada"],
-  ["exercicios", "/app/exercicios", "Caminhada"],
+  ["exercicios", "/app/exercicios", "Mobilidade"],
   ["calendario", "/app/habitos", "Calendário de conclusão"],
   ["progresso", "/app/progresso"],
 ];
