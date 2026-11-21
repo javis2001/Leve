@@ -16,3 +16,14 @@ for (const f of files) {
 }
 writeFileSync("src/lib/content/exercise-images.json", JSON.stringify(out, null, 2) + "\n");
 console.log(`[imagens] ${Object.keys(out).length} imagem(ns) de exercício encontrada(s).`);
+
+// Fotos das receitas: public/images/receitas/<slug-da-receita>.jpg|png|webp → src/lib/content/recipe-images.json
+const rdir = "public/images/receitas";
+const rfiles = existsSync(rdir) ? readdirSync(rdir) : [];
+const rout = {};
+for (const f of rfiles) {
+  const m = /^([a-z0-9-]+)\.(png|webp|jpe?g)$/.exec(f);
+  if (m) rout[m[1]] = `/images/receitas/${f}`;
+}
+writeFileSync("src/lib/content/recipe-images.json", JSON.stringify(rout, null, 2) + "\n");
+console.log(`[imagens] ${Object.keys(rout).length} foto(s) de receita encontrada(s).`);

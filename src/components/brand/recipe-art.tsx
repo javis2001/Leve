@@ -1,5 +1,8 @@
 import type { Recipe, RecipeCategory } from "@/lib/content/types";
 import { cn, hashString } from "@/lib/utils";
+import RECIPE_IMAGES_JSON from "@/lib/content/recipe-images.json";
+
+const RECIPE_IMAGES = RECIPE_IMAGES_JSON as Record<string, string>;
 
 const PALETTE: Record<RecipeCategory, { bg: string; bg2: string; plate: string }> = {
   "cafe-da-manha": { bg: "#FBEFD9", bg2: "#F4DDB2", plate: "#FFFDF8" },
@@ -32,9 +35,10 @@ function colorsFor(recipe: Pick<Recipe, "keyIngredients" | "slug">) {
  * fotografia cadastrada no painel admin.
  */
 export function RecipeArt({ recipe, className }: { recipe: Pick<Recipe, "slug" | "category" | "keyIngredients" | "title" | "imageUrl">; className?: string }) {
-  if (recipe.imageUrl) {
+  const photo = recipe.imageUrl || RECIPE_IMAGES[recipe.slug];
+  if (photo) {
     // eslint-disable-next-line @next/next/no-img-element
-    return <img src={recipe.imageUrl} alt={recipe.title} className={cn("h-full w-full object-cover", className)} loading="lazy" />;
+    return <img src={photo} alt={recipe.title} className={cn("h-full w-full object-cover", className)} loading="lazy" />;
   }
   const p = PALETTE[recipe.category];
   const h = hashString(recipe.slug);
