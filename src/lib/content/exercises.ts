@@ -223,7 +223,7 @@ export const EXERCISES: Exercise[] = [
     summary: "Contrabalança a postura curvada do celular e do computador.",
     pose: "standing-arms-up",
     steps: [
-      "Fique no vão de uma porta e apoie os antebraços nos batentes, cotovelos na altura dos ombros.",
+      "Fique no vão de uma porta e apoie as mãos nos batentes, um pouco abaixo da altura dos ombros, com os braços abertos.",
       "Dê um pequeno passo à frente com um pé.",
       "Leve o peito suavemente à frente até sentir alongar a região do peitoral.",
       "Mantenha 20 a 30 segundos respirando fundo.",
